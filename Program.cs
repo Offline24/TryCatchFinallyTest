@@ -6,10 +6,51 @@ namespace TryCatchFinallyTest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine($"Test 1 result: {Test1.Test()}");    //catch
-            Console.WriteLine($"Test 2 result: {Test2.Test()}");    //catch
-            Console.WriteLine($"Test 3 result: {Test3.Test()}");    //Start -> Outer try -> Inner try (throw exception) -> Inner catch -> Inner finally -> Outer finally -> End
-            Console.WriteLine($"Test 4 result: {Test4.Test()}");    //Start -> Outer try -> Inner try (throw exception) -> Inner catch (try return) -> Inner finally (throw exception) -> Outer catch -> Return from outer catch
+            Test();
+
+            Console.ReadKey();
+        }
+
+        private static void Test()
+        {
+            Console.WriteLine("Test method begin");
+
+            try
+            {
+                Console.WriteLine("\tOuter try");
+
+                try
+                {
+                    Console.WriteLine("\t\tInner try (exception incoming)");
+
+                    throw new Exception();
+                }
+                catch
+                {
+                    Console.WriteLine("\t\tInner catch (exception incoming)");
+
+                    throw new Exception("inner catch exception");
+                }
+                finally
+                {
+                    Console.WriteLine("\t\tInner finally (exception incoming)");
+
+                    throw new Exception("inner finally exception");
+
+                    //return;   //Error CS0157  Control cannot leave the body of a finally clause 
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"\tOuter catch (exception from: {e.Message})");
+            }
+            finally
+            {
+                
+                Console.WriteLine("\tOuter finally");
+            }
+
+            Console.WriteLine("Test method end");
         }
     }
 }
