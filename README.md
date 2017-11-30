@@ -1,6 +1,6 @@
 # TryCatchFinallyTest
 
-Code:
+Code (C#):
 ```cs
 Console.WriteLine("Test method begin");
 
@@ -42,7 +42,7 @@ finally
 Console.WriteLine("Test method end");
 ```
 
-Output:
+Output (.NET Framework 4.5.2):
 ```
 Test method begin
         Outer try
